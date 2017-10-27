@@ -133,18 +133,9 @@ userSchema.pre('save', function(next) {
     });
 });
 
-/*
-* custom Methods
-* */
-userSchema.methods={
-
-    /*
-    * Comparing the password
-    * @ Params{Object} password
-    * */
-  comparePassword: (password) =>{
-   return bcrypt.compareSync(password,this.password);
-  }
+// Methods to compare password to encrypted password upon login
+userSchema.methods.comparePassword = function(password) {
+    return bcrypt.compareSync(password, this.password); // Return comparison of login password to password in database (true or false)
 };
 
 
