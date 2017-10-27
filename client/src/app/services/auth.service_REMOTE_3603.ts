@@ -4,8 +4,8 @@ import {tokenNotExpired} from "angular2-jwt";
 import 'rxjs/add/operator/map';
 @Injectable()
 export class AuthService {
-  domain = "http://localhost:8080"; // Development Domain - Not Needed in Production
 
+  domain = "http://localhost:8080"; // Development Domain - Not Needed in Production
   authToken;
   user;
   options;
@@ -37,6 +37,7 @@ export class AuthService {
     return this.http.get(this.domain + '/authentication/checkUsername/' + username).
     map(res => res.json());
   }
+
   // Function to check if e-mail is taken
   checkEmail(email) {
     return this.http.get(this.domain + '/authentication/checkEmail/' + email).

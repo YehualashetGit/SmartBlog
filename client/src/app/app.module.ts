@@ -10,11 +10,16 @@ import { RegisterComponent } from './components/register/register.component';
 import {ReactiveFormsModule} from "@angular/forms";
 import {HttpModule} from "@angular/http";
 import {AuthService} from "./services/auth.service";
+import { LoginComponent } from './components/login/login.component';
+import { ProfileComponent } from './components/profile/profile.component';
+import {FlashMessagesModule} from "angular2-flash-messages";
 
 const appRoute:Routes=[
   { path: '', component: HomeComponent },
   {path: 'dashboard',component:DashboardComponent},
   { path: 'register', component: RegisterComponent },
+  { path: 'login', component: LoginComponent },
+  {path: 'profile',component:ProfileComponent},
   { path: '**', component: HomeComponent }
 ];
 @NgModule({
@@ -24,12 +29,14 @@ const appRoute:Routes=[
     HomeComponent,
     DashboardComponent,
     RegisterComponent,
-
+    LoginComponent,
+    ProfileComponent,
   ],
   imports: [
     BrowserModule,
     HttpModule,
     ReactiveFormsModule,
+    FlashMessagesModule,
     RouterModule.forRoot(appRoute,{enableTracing:true})
   ],
   providers: [AuthService],

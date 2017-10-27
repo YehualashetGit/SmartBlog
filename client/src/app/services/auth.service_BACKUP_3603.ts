@@ -5,10 +5,12 @@ import 'rxjs/add/operator/map';
 @Injectable()
 export class AuthService {
   domain = "http://localhost:8080"; // Development Domain - Not Needed in Production
-
+<<<<<<< HEAD
+=======
   authToken;
   user;
   options;
+>>>>>>> login-authentication
   constructor(
     private http:Http
   ) { }
