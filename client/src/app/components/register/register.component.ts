@@ -10,6 +10,8 @@ import {AuthService} from "../../services/auth.service";
 })
 export class RegisterComponent implements OnInit {
   form:FormGroup;
+  messageClass:String;
+  message:String;
   constructor(
     private _formBuilder:FormBuilder,
     private authService: AuthService
@@ -102,8 +104,15 @@ export class RegisterComponent implements OnInit {
       password:this.form.get('password').value
     };
     this.authService.registerUser(user).subscribe(data =>{
-      console.log(data);
-    })
+      // Resposne from registration attempt
+      if(!data.success){
+          this.messageClass = 'alert alert-danger'; // Set an error class
+          this.message = data.message; // Set an error message
+        }else{
+          this.messageClass = 'alert alert-success'; // Set a success class
+          this.message = data.message; // Set a success message
+        }
+    });
 
   }
 

@@ -1,5 +1,12 @@
 <h1 class="page-header">Register Page</h1>
 
+<!-- Custom Success/Error Message -->
+<div class="row show-hide-message">
+  <div [ngClass]="messageClass">
+    {{ message }}
+  </div>
+</div>
+
 <!-- Registration Form -->
 <form [formGroup]="form" (submit)="onRegisterSubmit()">
   <!-- Username Input -->
