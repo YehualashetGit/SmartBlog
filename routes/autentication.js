@@ -1,7 +1,7 @@
 "use strict";
 const express=require('express');
 const router=express.Router();
-const User = require('../models/user'); // Import User Model Schema
+const User = require('../models/user-model'); // Import User Model Schema
 router.post('/register',(req,res) =>{
     if(!req.body.username){
         res.json({

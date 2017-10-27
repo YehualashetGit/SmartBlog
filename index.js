@@ -5,6 +5,7 @@ const path=require('path');
 const logger = require('morgan');
 const bodyParser = require('body-parser');
 const autentication=require('./routes/autentication');
+const cors = require('cors'); // CORS is a node.js package for providing a Connect/Express middleware that can be used to enable CORS with various options.
 
 const app=express();
 
@@ -20,7 +21,8 @@ const config=require('./config/database',(err) =>{
 
 mongoose.Promise=global.Promise;
 mongoose.connect();
-
+// middleware
+app.use(cors({ origin: 'http://localhost:4200' }));
 app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));

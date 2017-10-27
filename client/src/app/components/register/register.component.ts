@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {FormBuilder, FormGroup, Validator, Validators} from "@angular/forms";
+import {AuthService} from "../../services/auth.service";
 
 
 @Component({
@@ -10,7 +11,8 @@ import {FormBuilder, FormGroup, Validator, Validators} from "@angular/forms";
 export class RegisterComponent implements OnInit {
   form:FormGroup;
   constructor(
-    private _formBuilder:FormBuilder
+    private _formBuilder:FormBuilder,
+    private authService: AuthService
   ) {
     this.createForm();
   }
@@ -92,7 +94,17 @@ export class RegisterComponent implements OnInit {
   }
 
   onRegisterSubmit(){
-    console.log(this.form);
+    console.log();
+    console.log();
+    const user={
+      email:this.form.get('email').value,
+      username:this.form.get('username').value,
+      password:this.form.get('password').value
+    };
+    this.authService.registerUser(user).subscribe(data =>{
+      console.log(data);
+    })
+
   }
 
   ngOnInit() {
