@@ -5,6 +5,7 @@ const path=require('path');
 const logger = require('morgan');
 const bodyParser = require('body-parser');
 const autentication=require('./routes/autentication');
+const blogs=require('./routes/blogs');
 const cors = require('cors'); // CORS is a node.js package for providing a Connect/Express middleware that can be used to enable CORS with various options.
 const config=require('./config/database');
 const app=express();
@@ -29,6 +30,7 @@ app.use(bodyParser.urlencoded({ extended: false }));
 // provide static directory for the front end
 app.use(express.static(path.join(__dirname,'/client/src/')));
 app.use('/authentication',autentication);
+app.use('/blog',blogs);
 // connect the server to Angular 4 index.html
 app.get('*',(req,res) =>{
     res.sendFile(path.join(__dirname,'/client/src/index.html'));
