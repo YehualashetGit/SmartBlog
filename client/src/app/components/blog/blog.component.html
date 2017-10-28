@@ -1,0 +1,116 @@
+ <div class="col-md-3"></div>
+    <div class="col-md-6">
+        <!-- Custom Success/Error Message -->
+        <div class="row show-hide-message" *ngIf="message && newPost">
+          <div [ngClass]="messageClass">
+            {{ message }}
+          </div>
+        </div>
+        <!-- New Post Button -->
+        <button type="button" name="button" class="btn btn-warning" *ngIf="!newPost"
+                (click)="newBlogForm()">New Post</button>
+        <!-- Reload Button -->
+        <button [disabled]="loadingBlogs" type="button" name="button"
+                class="btn btn-default" *ngIf="!newPost" (click)="reloadBlogs()">
+          <span class="glyphicon glyphicon-repeat"></span>&nbsp;&nbsp;Reload</button>
+
+        <br />
+        <br />
+
+      <!-- New Blog Form -->
+      <form [formGroup]="form" name="blogForm" (submit)="onBlogSubmit()" *ngIf="newPost">
+        <!-- Title Input -->
+        <div class="form-group">
+          <label for="title">Title</label>
+          <div [ngClass]="{'has-success': form.controls.title.valid, 'has-error': form.controls.title.dirty && form.controls.title.errors}">
+            <input type="text" name="title" class="form-control" id="title"
+                   placeholder="*Blog Title" autocomplete="off" formControlName="title" />
+            <ul class="help-block">
+              <li *ngIf="form.controls.title.dirty && form.controls.title.errors?.required">This field is required.</li>
+              <li *ngIf="(form.controls.title.dirty && form.controls.title.errors?.minlength) || (form.controls.title.dirty && form.controls.title.errors?.maxlength)">Max length: 50, Min length: 5</li>
+              <li *ngIf="form.controls.title.dirty && form.controls.title.errors?.alphaNumericValidation">Must be a letter or number</li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- Body Input -->
+        <div class="form-group">
+          <label for="body">Body</label>
+          <div [ngClass]="{'has-success': form.controls.body.valid, 'has-error': form.controls.body.dirty && form.controls.body.errors}">
+            <textarea name="body" rows="8" cols="80" placeholder="*Body" id="body"
+                      class="form-control" formControlName="body"></textarea>
+            <ul class="help-block">
+              <li *ngIf="form.controls.body.dirty && form.controls.body.errors?.required">This field is required.</li>
+              <li *ngIf="(form.controls.body.dirty && form.controls.body.errors?.minlength) || (form.controls.body.dirty && form.controls.body.errors?.maxlength)">Max length: 500, Min length: 5</li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- Go Back Button -->
+        <button [disabled]="processing" type="button" name="button" (click)="goBack()" class="btn btn-warning">Go Back</button>
+        <!-- Submit Button -->
+        <button [disabled]="processing || !form.valid" type="submit" name="button" class="btn btn-success">Submit</button>
+
+      </form>
+      <!-- New Blog Form -->
+
+        <!-- Blog Post -->
+        <div class="card mb-4" *ngIf="!newPost" >
+          <h2 class="card-title">Post Title</h2>
+          <div class="card-body">
+            <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit.
+              Reiciendis aliquid atque, nulla? Quos cum ex quis soluta, a laboriosam.
+              Dicta expedita corporis animi vero voluptate voluptatibus possimus, veniam magni quis!</p>
+          </div>
+          <div class="card-footer text-muted">
+              <div class="card-text">
+                <p>Posted on January 1, 2017 by yehualashet</p>
+              </div>
+            <div class="row">
+              <div class="col-md-4">
+                <!-- Likes Dropdown  -->
+                <div class="dropdown">
+                  <!-- Like Button -->
+                  <button type="button" name="button" class="btn btn-sm btn-success"><span class="glyphicon glyphicon-thumbs-up">&nbsp;</span>Likes: 21</button>
+                  <!-- Dropdown Menu Items -->
+                  <div class="dropdown-content">
+                    <a href="#">gugui3z24</a>
+                    <a href="#">jinder</a>
+                    <a href="#">patel</a>
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-4"><!-- Dislikes Dropdown  -->
+                <div class="dropdown">
+                  <!-- Dislike Button -->
+                  <button type="button" name="button" class="btn btn-sm btn-warning"><span class="glyphicon glyphicon-thumbs-down">&nbsp;</span>Dislikes: 15</button>
+                  <!-- Dropdown Menu Items -->
+                  <div class="dropdown-content">
+                    <a href="#">gugui3z24</a>
+                    <a href="#">jinder</a>
+                    <a href="#">patel</a>
+                  </div>
+                </div></div>
+              <div class="col-md-4">
+                <!-- Post Comment Box: Start -->
+                <div>
+                  <ul style="list-style: none">
+                    <li>
+                      <button type="button" name="button" class="btn btn-sm btn-danger"
+                              (click)="draftComment()">Post Comment</button>
+                      <br />
+                      <!-- <form>
+                        <textarea name="comment" rows="10" cols="30" class="form-control"></textarea>
+                        <button type="button" name="button" class="btn btn-sm btn-info">Submit Post</button>
+                        <button type="button" name="button" class="btn btn-sm btn-danger">Cancel</button>
+                      </form> -->
+                    </li>
+                  </ul>
+                </div>
+                  <!-- Post Comment Box: End -->
+              </div>
+            </div>
+          </div>
+        </div>
+    </div>
+ <div class="col-md-3"></div>

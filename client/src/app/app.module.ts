@@ -14,27 +14,44 @@ import { LoginComponent } from './components/login/login.component';
 import { ProfileComponent } from './components/profile/profile.component';
 import {FlashMessagesModule} from "angular2-flash-messages";
 import {AuthGuard} from "./guards/auth.guard";
+import { BlogComponent } from './components/blog/blog.component';
+import {NotAuthGuard} from "./guards/notAuth.guard";
+import {BlogService} from "./services/blog.service";
 
 const appRoute:Routes=[
   {
     path: '',
-    component: HomeComponent
+    component: HomeComponent // Default Route
   },
   {
     path: 'dashboard',
-    component:DashboardComponent,
-    canActivate:[AuthGuard]
+    component: DashboardComponent, // Dashboard Route,
+    canActivate: [AuthGuard] // User must be logged in to view this route
   },
   {
-    path: 'register', component: RegisterComponent
+    path: 'register',
+    component: RegisterComponent, // Register Route
+    canActivate: [NotAuthGuard] // User must NOT be logged in to view this route
   },
-  { path: 'login', component: LoginComponent },
+  {
+    path: 'login',
+    component: LoginComponent, // Login Route
+    canActivate: [NotAuthGuard] // User must NOT be logged in to view this route
+  },
   {
     path: 'profile',
-    component:ProfileComponent,
-    canActivate:[AuthGuard]
+    component: ProfileComponent, // Profile Route
+    canActivate: [AuthGuard] // User must be logged in to view this route
   },
-  { path: '**', component: HomeComponent }
+  {
+    path: 'blog',
+    component: BlogComponent, // Blog Route,
+    canActivate: [AuthGuard] // User must be logged in to view this route
+  },
+  {
+    path: '**',
+    component: HomeComponent
+  } // "Catch-All" Route
 ];
 @NgModule({
   declarations: [
@@ -45,6 +62,7 @@ const appRoute:Routes=[
     RegisterComponent,
     LoginComponent,
     ProfileComponent,
+    BlogComponent,
   ],
   imports: [
     BrowserModule,
@@ -53,7 +71,7 @@ const appRoute:Routes=[
     FlashMessagesModule,
     RouterModule.forRoot(appRoute,{enableTracing:true})
   ],
-  providers: [AuthService,AuthGuard],
+  providers: [AuthService,AuthGuard,NotAuthGuard,BlogService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
