@@ -55,62 +55,72 @@
       <!-- New Blog Form -->
 
         <!-- Blog Post -->
-        <div class="card mb-4" *ngIf="!newPost" >
-          <h2 class="card-title">Post Title</h2>
-          <div class="card-body">
-            <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit.
-              Reiciendis aliquid atque, nulla? Quos cum ex quis soluta, a laboriosam.
-              Dicta expedita corporis animi vero voluptate voluptatibus possimus, veniam magni quis!</p>
-          </div>
-          <div class="card-footer text-muted">
+        <div class="card mb-4" *ngIf="!newPost"  >
+          <div *ngFor="let blog of blogPosts">
+            <h2 class="card-title">{{blog.title}}</h2>
+            <div class="card-body">
+              <p class="card-text">{{blog.body}}</p>
+            </div>
+            <div class="card-footer text-muted">
               <div class="card-text">
-                <p>Posted on January 1, 2017 by yehualashet</p>
+                <p>Posted on {{blog.createdAt | date:'MMM dd, yyyy'}} by {{blog.createdBy}}</p>
               </div>
-            <div class="row">
-              <div class="col-md-4">
-                <!-- Likes Dropdown  -->
-                <div class="dropdown">
-                  <!-- Like Button -->
-                  <button type="button" name="button" class="btn btn-sm btn-success"><span class="glyphicon glyphicon-thumbs-up">&nbsp;</span>Likes: 21</button>
-                  <!-- Dropdown Menu Items -->
-                  <div class="dropdown-content">
-                    <a href="#">gugui3z24</a>
-                    <a href="#">jinder</a>
-                    <a href="#">patel</a>
+              <div>
+                <!-- Edit Button -->
+                <a [routerLink]="['/edit-blog/', blog._id]" *ngIf="username === blog.createdBy">
+                  <button type="button" name="button" class="btn btn-sm btn-info">Edit</button></a>
+                <!-- Delete Button -->
+                <a [routerLink]="['/delete-blog/', blog._id]" *ngIf="username === blog.createdBy">
+                  <button type="button" name="button" class="btn btn-sm btn-danger">Delete</button></a>
+
+              </div>
+              <div class="row">
+                <div class="col-md-4" *ngIf="username === blog.createdBy">
+                  <!-- Likes Dropdown  -->
+                  <div class="dropdown" >
+                    <!-- Like Button -->
+                    <button type="button" name="button" class="btn btn-sm btn-success"><span class="glyphicon glyphicon-thumbs-up">&nbsp;</span>Likes: 21</button>
+                    <!-- Dropdown Menu Items -->
+                    <div class="dropdown-content">
+                      <a href="#">gugui3z24</a>
+                      <a href="#">jinder</a>
+                      <a href="#">patel</a>
+                    </div>
                   </div>
                 </div>
-              </div>
-              <div class="col-md-4"><!-- Dislikes Dropdown  -->
-                <div class="dropdown">
-                  <!-- Dislike Button -->
-                  <button type="button" name="button" class="btn btn-sm btn-warning"><span class="glyphicon glyphicon-thumbs-down">&nbsp;</span>Dislikes: 15</button>
-                  <!-- Dropdown Menu Items -->
-                  <div class="dropdown-content">
-                    <a href="#">gugui3z24</a>
-                    <a href="#">jinder</a>
-                    <a href="#">patel</a>
+                <div class="col-md-4" *ngIf="username === blog.createdBy"><!-- Dislikes Dropdown  -->
+                  <div class="dropdown">
+                    <!-- Dislike Button -->
+                    <button type="button" name="button" class="btn btn-sm btn-warning"><span class="glyphicon glyphicon-thumbs-down">&nbsp;</span>Dislikes: 15</button>
+                    <!-- Dropdown Menu Items -->
+                    <div class="dropdown-content">
+                      <a href="#">gugui3z24</a>
+                      <a href="#">jinder</a>
+                      <a href="#">patel</a>
+                    </div>
+                  </div></div>
+                <div class="col-md-4">
+                  <!-- Post Comment Box: Start -->
+                  <div>
+                    <ul style="list-style: none">
+                      <li>
+                        <button type="button" name="button" class="btn btn-sm btn-danger"
+                                (click)="draftComment()">Post Comment</button>
+                        <br />
+                        <!-- <form>
+                          <textarea name="comment" rows="10" cols="30" class="form-control"></textarea>
+                          <button type="button" name="button" class="btn btn-sm btn-info">Submit Post</button>
+                          <button type="button" name="button" class="btn btn-sm btn-danger">Cancel</button>
+                        </form> -->
+                      </li>
+                    </ul>
                   </div>
-                </div></div>
-              <div class="col-md-4">
-                <!-- Post Comment Box: Start -->
-                <div>
-                  <ul style="list-style: none">
-                    <li>
-                      <button type="button" name="button" class="btn btn-sm btn-danger"
-                              (click)="draftComment()">Post Comment</button>
-                      <br />
-                      <!-- <form>
-                        <textarea name="comment" rows="10" cols="30" class="form-control"></textarea>
-                        <button type="button" name="button" class="btn btn-sm btn-info">Submit Post</button>
-                        <button type="button" name="button" class="btn btn-sm btn-danger">Cancel</button>
-                      </form> -->
-                    </li>
-                  </ul>
-                </div>
                   <!-- Post Comment Box: End -->
+                </div>
               </div>
             </div>
           </div>
+
         </div>
     </div>
  <div class="col-md-3"></div>

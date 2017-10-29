@@ -7,7 +7,7 @@ import {RouterModule, Routes} from "@angular/router";
 import { HomeComponent } from './components/home/home.component';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { RegisterComponent } from './components/register/register.component';
-import {ReactiveFormsModule} from "@angular/forms";
+import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {HttpModule} from "@angular/http";
 import {AuthService} from "./services/auth.service";
 import { LoginComponent } from './components/login/login.component';
@@ -17,6 +17,7 @@ import {AuthGuard} from "./guards/auth.guard";
 import { BlogComponent } from './components/blog/blog.component';
 import {NotAuthGuard} from "./guards/notAuth.guard";
 import {BlogService} from "./services/blog.service";
+import { EditBlogComponent } from './components/blog/edit-blog/edit-blog.component';
 
 const appRoute:Routes=[
   {
@@ -49,6 +50,11 @@ const appRoute:Routes=[
     canActivate: [AuthGuard] // User must be logged in to view this route
   },
   {
+    path: 'edit-blog/:id',
+    component: EditBlogComponent, // Edit Blog ROute
+    canActivate: [AuthGuard] // User must be logge din to view this route
+  },
+  {
     path: '**',
     component: HomeComponent
   } // "Catch-All" Route
@@ -63,10 +69,12 @@ const appRoute:Routes=[
     LoginComponent,
     ProfileComponent,
     BlogComponent,
+    EditBlogComponent,
   ],
   imports: [
     BrowserModule,
     HttpModule,
+    FormsModule,
     ReactiveFormsModule,
     FlashMessagesModule,
     RouterModule.forRoot(appRoute,{enableTracing:true})
