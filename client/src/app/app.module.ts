@@ -18,6 +18,7 @@ import { BlogComponent } from './components/blog/blog.component';
 import {NotAuthGuard} from "./guards/notAuth.guard";
 import {BlogService} from "./services/blog.service";
 import { EditBlogComponent } from './components/blog/edit-blog/edit-blog.component';
+import { DeleteBlogComponent } from './components/blog/delete-blog/delete-blog.component';
 
 const appRoute:Routes=[
   {
@@ -55,6 +56,11 @@ const appRoute:Routes=[
     canActivate: [AuthGuard] // User must be logge din to view this route
   },
   {
+    path: 'delete-blog/:id',
+    component: DeleteBlogComponent, // Delete Blog Route
+    canActivate: [AuthGuard] // User must be logged in to view this route
+  },
+  {
     path: '**',
     component: HomeComponent
   } // "Catch-All" Route
@@ -70,6 +76,7 @@ const appRoute:Routes=[
     ProfileComponent,
     BlogComponent,
     EditBlogComponent,
+    DeleteBlogComponent,
   ],
   imports: [
     BrowserModule,
